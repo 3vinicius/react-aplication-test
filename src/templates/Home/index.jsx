@@ -1,4 +1,4 @@
-import { Component } from "react";
+import { useEffect, useState, useCallback } from "react";
 
 import "./styles.css";
 
@@ -8,8 +8,96 @@ import { Posts } from "../../components/Posts/index";
 import { Button } from '../../components/Button';
 import { TextImput } from '../../components/TextImput';
 
+export const Home = () => {
+  
+  /* state = {
+    post:[],
+    allPosts: [],
+    page: 0,
+    postsPerPage:2,
+    searchValue:"",
+  }; */
 
-export class Home extends Component {
+  /* This is seted Usetate */
+  const [post, setPost] = useState([]); 
+  const [allPosts,setAllPosts] = useState([]);
+  const [page,setPage] = useState(0);
+  const [postsPerPage] = useState(2);
+  const [searchValue,setSearchValue] = useState("")
+
+
+  const maxPage = post.length >= 99
+
+
+  /* This is my functions */
+  const filterPosts = !!searchValue ? 
+      post.filter(post=>{
+        return post.title.toLowerCase().includes(searchValue.toLocaleLowerCase());
+      }) 
+      : post;
+
+
+    
+    
+
+    const handleLoadPosts = useCallback( async(page,postsPerPage) => {
+        
+        const postsAndPhotos = await loadPosts()
+        setPost(postsAndPhotos.slice(page,postsPerPage))
+        setAllPosts(postsAndPhotos)
+
+      },[])
+      
+
+      useEffect(() => {
+        handleLoadPosts(0,postsPerPage)
+      },[handleLoadPosts,postsPerPage])
+
+
+    const loadMorePosts = () =>{
+        const nextPage = page + postsPerPage;
+        const nextNewPages = allPosts.slice(nextPage,nextPage+postsPerPage)
+        post.push(...nextNewPages);
+        setPost(post);
+        setPage(nextPage)
+      } 
+  
+    const handleChange = (e)=>{
+        const {value} = e.target
+        setSearchValue(value)
+        
+      }
+
+
+  /* Method retunr with components  */
+  return(
+    <section className='container'>
+      <div className="search-container">
+      {!!searchValue && 
+        <>
+        <h1>Search Value: {searchValue}</h1>
+        </>
+      }
+      
+      <TextImput 
+      searchValue={searchValue}
+      handleChange={handleChange}
+      />
+      </div>
+      {filterPosts.length > 0 && <Posts post={filterPosts} />} 
+      {filterPosts.length === 0 && <p>Não existem posts com {searchValue}</p>}
+      
+
+      {!searchValue && (
+        <Button disabled={maxPage} onClick={loadMorePosts}/>
+      )}
+      
+    </section>
+    
+  );
+} 
+
+/* export class Home extends Component {
   state = {
     post:[],
     allPosts: [],
@@ -91,7 +179,7 @@ export class Home extends Component {
       );
     }
 } 
-
+ */
 /* 
   /* This is form is necessary used bind from reference this global 
   handlePclick = ()=>{

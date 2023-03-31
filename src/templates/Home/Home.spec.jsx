@@ -1,10 +1,5 @@
-import { render, screen } from '@testing-library/react';
-import App from '.';
-
-describe("<HOME/>", () => {
-  it("test one", () => {
+describe('<Home />',() => {
+  it('is a dummy test', () => {
     expect(1).toBe(1)
   })
 })
-
-

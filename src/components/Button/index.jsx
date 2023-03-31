@@ -6,7 +6,7 @@ export class Button extends Component {
     const {onClick} = this.props
     const {disabled} = this.props
     return(
-      <button disabled={disabled} onClick={onClick}>
+      <button className='button' disabled={disabled} onClick={onClick}>
         Load More Pages
       </button>
     )

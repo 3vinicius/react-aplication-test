@@ -1,9 +1,9 @@
 import './styles.css';
 
 
-export const PostCard = ({key,cover,title,body}) =>{
+export const PostCard = ({id,cover,title,body}) =>{
   return(
-  <div key={key} className="post">
+  <div key={id} className="post">
               <img src={cover} alt={title} />
             <div className="post-content">
               <h1>{title}</h1> 

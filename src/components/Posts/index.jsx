@@ -6,7 +6,9 @@ export const Posts = ({post}) => {
           {post.map(post => (
             <PostCard 
               key={post.id}
-              atribute={post}
+              cover={post.cover}
+              title={post.title}
+              body={post.body}
             />
           )) }
         </div>

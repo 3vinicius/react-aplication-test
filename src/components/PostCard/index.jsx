@@ -1,13 +1,13 @@
 import './styles.css';
 
-export const PostCard = (prop,{key}) =>{
-  const post = prop.atribute
+
+export const PostCard = ({key,cover,title,body}) =>{
   return(
   <div key={key} className="post">
-              <img src={post.cover} alt={post.title} />
+              <img src={cover} alt={title} />
             <div className="post-content">
-              <h1>{post.title}</h1> 
-              <p>{post.body}</p>
+              <h1>{title}</h1> 
+              <p>{body}</p>
             </div>
             </div>
   )

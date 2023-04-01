@@ -26,6 +26,7 @@ describe('<PostCard/>', () => {
   
   it('should match snapshot', () => {
     const { container } = render(<PostCard {...mock}/>);
+    // eslint-disable-next-line testing-library/no-node-access
     expect(container.firstChild).toMatchSnapshot()
 
   })
